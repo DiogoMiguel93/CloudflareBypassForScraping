@@ -39,7 +39,7 @@ def main():
         display = Display(visible=0, size=(1920, 1080))
         display.start()
 
-    browser_path = os.getenv('CHROME_PATH', "/usr/bin/google-chrome")
+    browser_path = os.getenv('CHROME_PATH', "/usr/bin/chromium")
     
     # Windows Example
     # browser_path = os.getenv('CHROME_PATH', r"C:/Program Files/Google/Chrome/Application/chrome.exe")
