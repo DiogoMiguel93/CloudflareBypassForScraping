@@ -76,8 +76,8 @@ def bypass_cloudflare(url: str, retries: int, log: bool) -> ChromiumPage:
         
         options = ChromiumOptions()
         options.set_argument("--no-sandbox")
-        options.set_argument("--disable-gpu")
-        options.set_paths(browser_path=browser_path).headless(True)
+        #options.set_argument("--disable-gpu")
+        options.set_paths(browser_path=browser_path).headless(False)
 
     driver = ChromiumPage(addr_or_opts=options)
     try:
@@ -87,8 +87,7 @@ def bypass_cloudflare(url: str, retries: int, log: bool) -> ChromiumPage:
         return driver
     except Exception as e:
         driver.quit()
-        if DOCKER_MODE:
-            display.stop()  # Stop Xvfb
+        display.stop()  # Stop Xvfb
         raise e
 
 
