@@ -32,7 +32,7 @@ arguments = [
     #"-incognito" # You can add this line to open the browser in incognito mode by default 
 ]
 
-browser_path = "/usr/bin/google-chrome"
+browser_path = "/usr/bin/chromium"
 app = FastAPI()
 
 
@@ -72,7 +72,8 @@ def bypass_cloudflare(url: str, retries: int, log: bool) -> ChromiumPage:
     else:
         options = ChromiumOptions()
         options.set_argument("--auto-open-devtools-for-tabs", "true")
-        options.set_paths(browser_path=browser_path).headless(False)
+        options.set_argument("--no-sandbox")
+        options.set_paths(browser_path=browser_path).headless(True)
 
     driver = ChromiumPage(addr_or_opts=options)
     try:
