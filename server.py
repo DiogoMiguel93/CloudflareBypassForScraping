@@ -78,8 +78,8 @@ def bypass_cloudflare(url: str, retries: int, log: bool) -> ChromiumPage:
         #display = Display(visible=0, size=(1920, 1080))
         #display.start()
         
-        options = ChromiumOptions()
-        options.set_paths(browser_path=browser_path).headless(True)
+        options = get_chromium_options(browser_path, arguments)
+        #options.set_paths(browser_path=browser_path).headless(True)
 
     driver = ChromiumPage(addr_or_opts=options)
     try:
