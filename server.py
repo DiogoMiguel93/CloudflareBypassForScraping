@@ -58,21 +58,6 @@ def is_safe_url(url: str) -> bool:
     return True
 
 
-def get_chromium_options(browser_path: str, arguments: list) -> ChromiumOptions:
-    """
-    Configures and returns Chromium options.
-    
-    :param browser_path: Path to the Chromium browser executable.
-    :param arguments: List of arguments for the Chromium browser.
-    :return: Configured ChromiumOptions instance.
-    """
-    options = ChromiumOptions()
-    options.set_paths(browser_path=browser_path).headless(False)
-    for argument in arguments:
-        options.set_argument(argument)
-    return options
-
-
 # Function to bypass Cloudflare protection
 def bypass_cloudflare(url: str, retries: int, log: bool) -> ChromiumPage:
     from pyvirtualdisplay import Display
@@ -92,7 +77,11 @@ def bypass_cloudflare(url: str, retries: int, log: bool) -> ChromiumPage:
         # Start Xvfb for Docker
         #display = Display(visible=0, size=(1920, 1080))
         #display.start()
-        options = get_chromium_options(browser_path, arguments)
+        
+        options = ChromiumOptions()
+        options.set_argument("--no-sandbox")  # Necessary
+        options.set_argument("--disable-gpu")  # Optional, helps in some cases
+        options.set_paths(browser_path=browser_path).headless(True)
 
     driver = ChromiumPage(addr_or_opts=options)
     try:
