@@ -75,8 +75,8 @@ def bypass_cloudflare(url: str, retries: int, log: bool) -> ChromiumPage:
         options.set_paths(browser_path=browser_path).headless(False)
     else:
         # Start Xvfb for Docker
-        #display = Display(visible=0, size=(1920, 1080))
-        #display.start()
+        display = Display(visible=0, size=(1920, 1080))
+        display.start()
         
         options = ChromiumOptions()
         options.set_argument("--single-process")
