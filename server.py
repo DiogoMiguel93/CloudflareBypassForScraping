@@ -79,9 +79,14 @@ def bypass_cloudflare(url: str, retries: int, log: bool) -> ChromiumPage:
         #display.start()
         
         options = ChromiumOptions()
+        options.set_argument("-single-process")
+        options.set_argument("--disable-background-mode")
+        options.set_argument("--disable-infobars")
+        options.set_argument("--disable-extensions")
+        options.set_argument("--no-first-run")
         options.set_argument("--no-sandbox")  # Necessary
         options.set_argument("--disable-gpu")  # Optional, helps in some cases
-        options.set_paths(browser_path=browser_path).headless(True)
+        options.set_paths(browser_path=browser_path).headless(False)
 
     driver = ChromiumPage(addr_or_opts=options)
     try:
