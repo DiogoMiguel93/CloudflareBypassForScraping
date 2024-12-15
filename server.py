@@ -29,7 +29,11 @@ arguments = [
     "-deny-permission-prompts",
     "-disable-gpu",
     "-accept-lang=en-US",
-    #"-incognito" # You can add this line to open the browser in incognito mode by default 
+    "-single-process",
+    "-no-sandbox",
+    "-disable-infobars",
+    "-disable-extensions",
+    "-window-size=1920,1080"
 ]
 
 browser_path = "/usr/bin/chromium"
@@ -71,16 +75,11 @@ def bypass_cloudflare(url: str, retries: int, log: bool) -> ChromiumPage:
         options.set_paths(browser_path=browser_path).headless(False)
     else:
         # Start Xvfb for Docker
-        display = Display(visible=0, size=(1920, 1080))
-        display.start()
+        #display = Display(visible=0, size=(1920, 1080))
+        #display.start()
         
         options = ChromiumOptions()
-        options.set_argument("--no-sandbox")
-        options.set_argument("--disable-gpu")
-        options.set_argument("--headless")
-        options.set_argument("--single-process")
-        options.set_argument("--disable-infobars")
-        options.set_paths(browser_path=browser_path)#.headless(False)
+        options.set_paths(browser_path=browser_path)headless(True)
 
     driver = ChromiumPage(addr_or_opts=options)
     try:
