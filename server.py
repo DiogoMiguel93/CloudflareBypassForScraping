@@ -79,7 +79,7 @@ def bypass_cloudflare(url: str, retries: int, log: bool) -> ChromiumPage:
         #display.start()
         
         options = ChromiumOptions()
-        options.set_argument("-single-process")
+        options.set_argument("--single-process")
         options.set_argument("--disable-background-mode")
         options.set_argument("--disable-infobars")
         options.set_argument("--disable-extensions")
